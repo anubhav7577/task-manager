@@ -1,7 +1,7 @@
 #Hosted Link
 https://apni-coding.github.io/Todo-List-Using-React/
 
-# Todo List
+# Task Manager
 
 This is a simple Todo List application built using React. It allows users to add, edit, and delete tasks, mark tasks as completed, and filter tasks based on their completion status.
 
@@ -23,22 +23,17 @@ This is a simple Todo List application built using React. It allows users to add
    git clone <repository-url>
    ```
 
-2. Navigate to the project directory:
-   ```
-   cd todo-list
-   ```
-
-3. Install the dependencies:
+2. Install the dependencies:
    ```
    npm install
    ```
 
-4. Start the application:
+3. Start the application:
    ```
    npm start
    ```
 
-5. Open your web browser and visit http://localhost:3000 to see the Todo List application.
+4. Open your web browser and visit http://localhost:3000 to see the Todo List application.
 
 ## Dependencies
 
@@ -52,8 +47,7 @@ You can find the complete list of dependencies with their versions in the `packa
 
 ## API
 
-The application uses the JSONPlaceholder API to fetch and update tasks. The API endpoint used is: https://jsonplaceholder.typicode.com/todos
-
+No api integration only localstorage has been used for this project
 
 ## Contributing
 
@@ -72,4 +66,4 @@ If you'd like to contribute to this project, please follow these steps:
 - [React](https://reactjs.org/) - The JavaScript library used for building the user interface.
 - [React Toastify](https://fkhadra.github.io/react-toastify/) - A library for displaying toast notifications in React applications.
   ## Owner
-  Vivek Kumar
+  Anubhav Kumar
