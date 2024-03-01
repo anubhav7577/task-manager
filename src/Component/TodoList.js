@@ -5,6 +5,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import './style.css';
 import todoImage from "../image/todo.png"
 
+const saveTasks = (tasks) => {
+  localStorage.setItem('todos', JSON.stringify(tasks));
+}
+
 const TodoList = () => {
   // State variables
   const [tasks, setTasks] = useState([]); // Holds the list of tasks
@@ -19,21 +23,10 @@ const TodoList = () => {
     setTasks(storedTodos);
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(tasks));
-  }, [tasks]);
-  // Fetch todos from an API
-  // const fetchTodos = async () => {
-  //   try {
-  //     const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=4');
-  //     const todos = await response.json();
-  //     setTasks(todos);
-  //     setIsLoading(false);
-  //   } catch (error) {
-  //     console.log('Error fetching todos:', error);
-  //     setIsLoading(false);
-  //   }
-  // };
+  // useEffect(() => {
+  //   localStorage.setItem('todos', JSON.stringify(tasks));
+  // }, [tasks]);
+  
 
   // Handle input change
   const handleInputChange = (event) => {
@@ -53,15 +46,10 @@ const TodoList = () => {
     };
 
     try {
-      // const response = await fetch('https://jsonplaceholder.typicode.com/todos', {
-      //   method: 'POST',
-      //   body: JSON.stringify(newTask),
-      //   headers: {
-      //     'Content-type': 'application/json; charset=UTF-8',
-      //   },
-      // });
-      // const addedTask = await response.json();
-      setTasks([...tasks, newTask]);
+
+     const newTasks = [...tasks, newTask];
+      setTasks(newTasks);
+      saveTasks(newTasks);
       setInputValue('');
       toast.success('Task added successfully');
     } catch (error) {
@@ -83,6 +71,7 @@ const TodoList = () => {
   const handleDeleteTask = (id) => {
     const updatedTodos = tasks.filter((todo) => todo.id !== id);
     setTasks(updatedTodos);
+    saveTasks(updatedTodos);
     toast.success('Task deleted successfully');
   };
 
@@ -103,20 +92,11 @@ const TodoList = () => {
       completed: false
     };
     try {
-      // const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${editTaskId}`, {
-      //   method: 'PUT',
-      //   body:JSON.stringify(updatedTask),
-      //                 headers: {
-      //     'Content-type': 'application/json; charset=UTF-8',
-      //   },
-      // });
-      // const updatedTaskData = await response.json();
-      // console.log("update",updatedTaskData)
-      setTasks((tasks) =>
-        tasks.map((task) =>
-          task.id === editTaskId ? { ...task, title: updatedTask?.title } : task
-        )
+      const updatedTasks = tasks.map((task) =>
+        task.id === editTaskId ? { ...task, title: updatedTask?.title } : task
       );
+      setTasks(updatedTasks);
+      saveTasks(updatedTasks);
       setInputValue('');
       setEditTaskId(null);
       toast.success('Task updated successfully');
@@ -128,14 +108,16 @@ const TodoList = () => {
 
   // Mark all tasks as completed
   const handleCompleteAll = () => {
-    setTasks((tasks) =>
-      tasks.map((task) => ({ ...task, completed: true }))
-    );
+    const updatedTasks = tasks.map((task) => ({ ...task, completed: true }));
+    setTasks(updatedTasks);
+    saveTasks(updatedTasks);
   };
 
   // Clear completed tasks
   const handleClearCompleted = () => {
-    setTasks((tasks) => tasks.filter((task) => !task.completed));
+    const updatedTasks = tasks.filter((task) => !task.completed);
+    setTasks(updatedTasks);
+    saveTasks(updatedTasks);
   };
 
   // Handle filter change
